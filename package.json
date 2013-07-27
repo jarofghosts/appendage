@@ -1,0 +1,23 @@
+{
+  "name": "appendage",
+  "version": "0.0.0",
+  "description": "decorate streams uniformly",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jarofghosts/appendage.git"
+  },
+  "keywords": [
+    "stream",
+    "decorate",
+    "append"
+  ],
+  "author": "jesse keane",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jarofghosts/appendage/issues"
+  }
+}
