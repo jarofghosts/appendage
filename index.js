@@ -1,17 +1,16 @@
-var through = require('through');
+var through = require('through')
 
-module.exports = appendage;
+module.exports = appendage
 
-function appendage(options) {
-  options = options || {};
-  var before = options.before || '',
+function appendage(_options) {
+  var options = _options || {},
+      before = options.before || '',
       after = options.after || '',
-      tr = through(write);
+      stream = through(write)
 
-  return tr;
+  return stream
 
   function write(buf) {
-    this.queue([before, buf.toString(), after].join(''));
+    stream.queue([before, buf.toString(), after].join(''))
   }
 }
-
