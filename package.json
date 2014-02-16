@@ -4,7 +4,7 @@
   "description": "decorate streams uniformly",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test.js"
+    "test": "node test/test.js && node test/just-before-test.js && node test/just-after-test.js"
   },
   "repository": {
     "type": "git",

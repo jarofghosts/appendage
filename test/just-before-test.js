@@ -14,11 +14,11 @@ rs._read = function () {
 ws._write = function (_data, enc, next) {
   var data = _data.toString()
 
-  read_chunk === 1 && assert.strictEqual(data, '88abc99')
-  read_chunk === 2 && assert.strictEqual(data, '88lala99')
+  read_chunk === 1 && assert.strictEqual(data, '88abc')
+  read_chunk === 2 && assert.strictEqual(data, '88lala')
   read_chunk++
 
   next()
 }
 
-rs.pipe(appendage({ before: 88, after: 99 })).pipe(ws)
+rs.pipe(appendage({ before: 88 })).pipe(ws)
