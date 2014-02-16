@@ -8,9 +8,10 @@ decorate some streams
 ## usage
 
 ```js
-var appendage = require('appendage');
+var appendage = require('appendage')
 
-readable.pipe(appendage({ before: '**>', after: '\n' })).pipe(process.stdout);
+readable.pipe(appendage({ before: '**>', after: '\n' })).pipe(process.stdout)
+// '**>everything readable streams\n'
 ```
 
 ## license
