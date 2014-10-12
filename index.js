@@ -7,13 +7,13 @@ function appendage(_options) {
 
   var before = new Buffer('' + (options.before || ''))
     , after = new Buffer('' + (options.after || ''))
-    , append_stream = transform()
+    , appendStream = transform()
 
-  append_stream._transform = function appendage_transform(chunk, enc, next) {
+  appendStream._transform = function appendage_transform(chunk, enc, next) {
     this.push(Buffer.concat([before, chunk, after]))
 
     next()
   }
 
-  return append_stream
+  return appendStream
 }
