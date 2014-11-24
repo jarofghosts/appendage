@@ -9,7 +9,7 @@ function appendage(_options) {
     , after = new Buffer('' + (options.after || ''))
     , appendStream = transform()
 
-  appendStream._transform = function appendage_transform(chunk, enc, next) {
+  appendStream._transform = function appendageTransform(chunk, enc, next) {
     this.push(Buffer.concat([before, chunk, after]))
 
     next()

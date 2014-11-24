@@ -1,110 +1,103 @@
-var stream = require('stream')
-
 var test = require('tape')
 
 var appendage = require('../')
 
 test('append to end and beginning', function(t) {
-  var rs = stream.Readable()
-    , ws = stream.Writable()
-    , readChunk = 1
-
   t.plan(2)
 
-  rs._read = function () {
-    rs.push('abc')
-    rs.push('lala')
-    rs.push(null)
-  }
+  var appendStream = appendage({before: 'wanda', after: 'derp'})
 
-  ws._write = function (_data, enc, next) {
-    var data = _data.toString()
+  appendStream.once('data', function(chunk) {
+    t.equal(chunk.toString(), 'wandaabcderp')
+  })
 
-    if(readChunk === 1) t.equal(data, '88abc99')
-    if(readChunk === 2) t.equal(data, '88lala99')
+  appendStream.write('abc')
 
-    readChunk++
+  appendStream.once('data', function(chunk) {
+    t.equal(chunk.toString(), 'wandalaladerp')
+  })
 
-    next()
-  }
+  appendStream.write('lala')
 
-  rs.pipe(appendage({before: 88, after: 99})).pipe(ws)
+  appendStream.end()
+})
+
+test('toString()s input', function(t) {
+  t.plan(2)
+
+  var appendStream = appendage({before: 88, after: 99})
+
+  appendStream.once('data', function(chunk) {
+    t.equal(chunk.toString(), '88abc99')
+  })
+
+  appendStream.write('abc')
+
+  appendStream.once('data', function(chunk) {
+    t.equal(chunk.toString(), '88lala99')
+  })
+
+  appendStream.write('lala')
+
+  appendStream.end()
 })
 
 test('append to end only', function(t) {
-  var rs = stream.Readable()
-    , ws = stream.Writable()
-    , readChunk = 1
-
   t.plan(2)
 
-  rs._read = function () {
-    rs.push('abc')
-    rs.push('lala')
-    rs.push(null)
-  }
+  var appendStream = appendage({after: 99})
 
-  ws._write = function (_data, enc, next) {
-    var data = _data.toString()
+  appendStream.once('data', function(chunk) {
+    t.equal(chunk.toString(), 'abc99')
+  })
 
-    if(readChunk === 1) t.equal(data, 'abc99')
-    if(readChunk === 2) t.equal(data, 'lala99')
-    readChunk++
+  appendStream.write('abc')
 
-    next()
-  }
+  appendStream.once('data', function(chunk) {
+    t.equal(chunk.toString(), 'lala99')
+  })
 
-  rs.pipe(appendage({after: 99})).pipe(ws)
+  appendStream.write('lala')
+
+  appendStream.end()
 })
 
 test('append to beginning only', function(t) {
-  var rs = stream.Readable()
-    , ws = stream.Writable()
-    , readChunk = 1
-
   t.plan(2)
 
-  rs._read = function () {
-    rs.push('abc')
-    rs.push('lala')
-    rs.push(null)
-  }
+  var appendStream = appendage({before: 88})
 
-  ws._write = function (_data, enc, next) {
-    var data = _data.toString()
+  appendStream.once('data', function(chunk) {
+    t.equal(chunk.toString(), '88abc')
+  })
 
-    if(readChunk === 1) t.equal(data, '88abc')
-    if(readChunk === 2) t.equal(data, '88lala')
-    readChunk++
+  appendStream.write('abc')
 
-    next()
-  }
+  appendStream.once('data', function(chunk) {
+    t.equal(chunk.toString(), '88lala')
+  })
 
-  rs.pipe(appendage({before: 88})).pipe(ws)
+  appendStream.write('lala')
+
+  appendStream.end()
 })
 
 test('appends nothing by default', function(t) {
-  var rs = stream.Readable()
-    , ws = stream.Writable()
-    , readChunk = 1
-
   t.plan(2)
 
-  rs._read = function () {
-    rs.push('abc')
-    rs.push('lala')
-    rs.push(null)
-  }
+  var appendStream = appendage()
 
-  ws._write = function (_data, enc, next) {
-    var data = _data.toString()
+  appendStream.once('data', function(chunk) {
+    t.equal(chunk.toString(), 'abc')
+  })
 
-    if(readChunk === 1) t.equal(data, 'abc')
-    if(readChunk === 2) t.equal(data, 'lala')
-    readChunk++
+  appendStream.write('abc')
 
-    next()
-  }
+  appendStream.once('data', function(chunk) {
+    t.equal(chunk.toString(), 'lala')
+  })
 
-  rs.pipe(appendage()).pipe(ws)
+  appendStream.write('lala')
+
+  appendStream.end()
 })
