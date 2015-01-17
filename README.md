@@ -1,7 +1,8 @@
 appendage
 =========
 
-[![Build Status](https://travis-ci.org/jarofghosts/appendage.png?branch=master)](https://travis-ci.org/jarofghosts/appendage)
+[![Build Status](http://img.shields.io/travis/jarofghosts/appendage/master.svg?style=flat)](https://travis-ci.org/jarofghosts/appendage)
+[![npm install](http://img.shields.io/npm/dm/appendage.svg?style=flat)](https://www.npmjs.org/package/appendage)
 
 decorate some streams
 
@@ -10,8 +11,10 @@ decorate some streams
 ```js
 var appendage = require('appendage')
 
-readable.pipe(appendage({ before: '**>', after: '\n' })).pipe(process.stdout)
-// '**>everything readable streams\n'
+var stream = appendage('**> ', '\n')
+
+stream.write('wee') // '**> wee\n'
+stream.write('uh-huh') // '**> uh-huh\n'
 ```
 
 ## license

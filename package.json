@@ -4,7 +4,7 @@
   "description": "decorate streams uniformly",
   "main": "index.js",
   "scripts": {
-    "test": "node test/index.js"
+    "test": "covert test/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
     "url": "https://github.com/jarofghosts/appendage/issues"
   },
   "devDependencies": {
+    "covert": "^1.0.1",
     "tape": "^2.12.3"
   }
 }

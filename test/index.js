@@ -5,7 +5,7 @@ var appendage = require('../')
 test('append to end and beginning', function(t) {
   t.plan(2)
 
-  var appendStream = appendage({before: 'wanda', after: 'derp'})
+  var appendStream = appendage('wanda', 'derp')
 
   appendStream.once('data', function(chunk) {
     t.equal(chunk.toString(), 'wandaabcderp')
@@ -25,7 +25,7 @@ test('append to end and beginning', function(t) {
 test('toString()s input', function(t) {
   t.plan(2)
 
-  var appendStream = appendage({before: 88, after: 99})
+  var appendStream = appendage(88, 99)
 
   appendStream.once('data', function(chunk) {
     t.equal(chunk.toString(), '88abc99')
@@ -45,7 +45,7 @@ test('toString()s input', function(t) {
 test('append to end only', function(t) {
   t.plan(2)
 
-  var appendStream = appendage({after: 99})
+  var appendStream = appendage(null, 99)
 
   appendStream.once('data', function(chunk) {
     t.equal(chunk.toString(), 'abc99')
@@ -65,7 +65,7 @@ test('append to end only', function(t) {
 test('append to beginning only', function(t) {
   t.plan(2)
 
-  var appendStream = appendage({before: 88})
+  var appendStream = appendage(88)
 
   appendStream.once('data', function(chunk) {
     t.equal(chunk.toString(), '88abc')
